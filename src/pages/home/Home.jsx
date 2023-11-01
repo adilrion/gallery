@@ -1,11 +1,14 @@
-import Layout from "../../layout/layout"
+import Layout from "../../layout/Layout"
 
-const Home = () => {
+export const Home = () => {
   return (
-    <Layout>
-      <h1>Hello dear</h1>
+      <Layout>
+          
+
+          <div>Home</div>
+
     </Layout>
+    
+    
   )
 }
-
-export default Home

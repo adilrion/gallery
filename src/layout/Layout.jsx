@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Footer } from "../components/footer/footer"
+import { Footer } from "../components/footer/Footer"
 import { TopNavbar } from "../components/navigation/TopNavbar"
 
 const Layout = ({ children }) => {

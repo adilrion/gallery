@@ -1,4 +1,4 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import {  useState } from "react";
 import { firebaseStorage } from "../../firebase/firebaseStorage";
 import {UseGallery} from '../../contexts/galleryContext/GalleryContext'
@@ -7,7 +7,7 @@ const GIndex = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const { data } = UseGallery();
+  const { data, loading } = UseGallery();
   console.log(data)
 
   const handleFileChange = (event) => {
@@ -33,10 +33,30 @@ const GIndex = () => {
   };
 
 
+  if (loading) {
+    return (
+      <div className="w-full h-[100vh] flex justify-center items-center">
+        <Spinner color="blue" />
+      </div>
+        ) 
+  }
 
 
   return (
     <section>
+
+
+      <div className="grid grid-cols-5 gap-10">
+        {
+          data?.map((image, index) => {
+            return (
+              <div key={index} className="col-span-1 border-gray-900 border rounded-full">
+                <img src={image?.url} alt="" srcSet="" className="" />
+              </div>
+            )
+          })
+            }
+      </div>
 
       
 

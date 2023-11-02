@@ -1,4 +1,4 @@
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { getDownloadURL, getStorage, listAll, ref, uploadBytesResumable } from "firebase/storage";
 import { App } from "../config/firebase/firebase.config";
 
 const storage = getStorage(App);
@@ -71,7 +71,7 @@ const uploadImage = async (file) => {
             () => {
                 // Upload completed successfully, now we can get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log("File available at", downloadURL);
+                    console.log("File available at", uploadTask);
                     return downloadURL;
                 });
             }
@@ -83,10 +83,27 @@ const uploadImage = async (file) => {
 
 
 
+export const fetchImages = async () => {
+    try {
+        const listRef = ref(storage, "task");
+        const result = await listAll(listRef);
+
+        const imagePromises = result.items.map(async (imageRef) => {
+            const downloadURL = await getDownloadURL(imageRef);
+            return { name: imageRef.name, url: downloadURL };
+        });
+
+        return Promise.all(imagePromises);
+    } catch (error) {
+        console.error("Error listing images:", error);
+        throw error;
+    }
+};
 
 
 
 export const firebaseStorage = {
     storage,
     uploadImage,
+    fetchImages,
 };

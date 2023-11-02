@@ -1,19 +1,23 @@
-import { useGallery } from "../../contexts/galleryContext/GalleryContext"
 import Layout from "../../layout/Layout"
+import GIndex from "../gallery/Gindex";
+
 
 export const Home = () => {
 
-  const { data } = useGallery();
+
+
 
 
   return (
-      <Layout>
-          
+    <Layout>
 
-      <div>Home { data}</div>
+
+      <div>Home</div>
+
+      <GIndex />
 
     </Layout>
-    
-    
+
+
   )
 }

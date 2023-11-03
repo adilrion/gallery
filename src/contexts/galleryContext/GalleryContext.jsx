@@ -1,40 +1,36 @@
+// context/GalleryContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import { firebaseStorage } from "../../firebase/firebaseStorage";
 
 
-const gContext = createContext();
-// eslint-disable-next-line react-refresh/only-export-components
-export const useGallery = () => {
-    return useContext(gContext)
-}
+const GalleryContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const useGallery = () => useContext(GalleryContext);
 
 // eslint-disable-next-line react/prop-types
 export const GProvider = ({ children }) => {
-
-    const [data, setData] = useState([]); // Initialize with your initial data
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-
     useEffect(() => {
-        firebaseStorage.fetchImages()
-            .then((imageArray) => {
-                setData(imageArray);
-            })
-            .catch((error) => {
+        const fetchData = async () => {
+            try {
+                const images = await firebaseStorage.fetchImages();
+                setData(images);
+            } catch (error) {
                 console.error("Error fetching images:", error);
-            })
-            .finally(() => {
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchData();
     }, []);
 
-
-
     return (
-        <gContext.Provider value={{ data, loading, setData }}>
+        <GalleryContext.Provider value={{ data, loading, setData }}>
             {children}
-        </gContext.Provider>
-    )
-}
-
+        </GalleryContext.Provider>
+    );
+};

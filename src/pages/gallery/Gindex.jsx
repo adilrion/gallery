@@ -1,18 +1,18 @@
-import { Button, Spinner } from "@material-tailwind/react";
+// components/Gallery.js
 import { useState } from "react";
+import { Button, Spinner } from "@material-tailwind/react";
 import { firebaseStorage } from "../../firebase/firebaseStorage";
 import { useGallery } from '../../contexts/galleryContext/GalleryContext';
 
 const GIndex = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedImages, setSelectedImages] = useState({}); // Renamed to clarify it's for selected images
+  const [selectedImages, setSelectedImages] = useState({});
+  const { data, loading, setData } = useGallery();
+
   const numberOfSelectedImages = Object.entries(selectedImages).length;
 
-  const { data, loading } = useGallery();
-
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
+    setSelectedFile(event.target.files[0]);
   };
 
   const handleToggleImageSelection = (imageName) => {
@@ -26,10 +26,10 @@ const GIndex = () => {
     if (selectedFile) {
       try {
         const downloadURL = await firebaseStorage.uploadImage(selectedFile);
+        const updatedData = await firebaseStorage.fetchImages();
+        setData(updatedData);
         console.log('File uploaded, download URL:', downloadURL);
-        if (downloadURL) {
-          setSelectedFile(null);
-        }
+        setSelectedFile(null);
       } catch (error) {
         console.error('Upload error:', error);
       }
@@ -39,14 +39,15 @@ const GIndex = () => {
   const handleDelete = async () => {
     if (numberOfSelectedImages > 0) {
       try {
-        const deletePromises = Object.keys(selectedImages).map((imageName) => {
-          return firebaseStorage.deleteImage(imageName);
-        });
-
+        const deletePromises = Object.keys(selectedImages).map((imageName) =>
+          firebaseStorage.deleteImage(imageName)
+        );
         await Promise.all(deletePromises);
-        console.log("Files deleted.");
+        console.log('Files deleted.');
+        const updatedData = await firebaseStorage.fetchImages();
+        setData(updatedData);
       } catch (error) {
-        console.error("Delete error:", error);
+        console.error('Delete error:', error);
       }
     }
   };
@@ -66,9 +67,9 @@ const GIndex = () => {
       </div>
 
       <div className="grid grid-cols-5 gap-10">
-        {data?.map((image, index) => (
+        {data.map((image, index) => (
           <div key={index} className="col-span-1 border-gray-900 border rounded-full">
-            <img src={image?.url} alt="" srcSet="" className="" />
+            <img src={image.url} alt={image.name} />
             <input
               type="checkbox"
               checked={selectedImages[image.name] || false}

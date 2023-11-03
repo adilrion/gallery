@@ -1,4 +1,4 @@
-import { getDownloadURL, getStorage, listAll, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, getStorage, listAll, ref, uploadBytesResumable } from "firebase/storage";
 import { App } from "../config/firebase/firebase.config";
 
 const storage = getStorage(App);
@@ -83,7 +83,7 @@ const uploadImage = async (file) => {
 
 
 
-export const fetchImages = async () => {
+const fetchImages = async () => {
     try {
         const listRef = ref(storage, "task");
         const result = await listAll(listRef);
@@ -101,9 +101,27 @@ export const fetchImages = async () => {
 };
 
 
+const deleteImage = async (images) => {
+    const desertRef = await ref(storage, `task/${images}`);
+
+    // Delete the file
+    deleteObject(desertRef)
+        .then((res) => {
+            // File deleted successfully
+            console.log(res)
+        })
+        .catch((error) => {
+            // Uh-oh, an error occurred!
+            console.log(error)
+        });
+};
+
+
+
 
 export const firebaseStorage = {
     storage,
     uploadImage,
     fetchImages,
+    deleteImage,
 };

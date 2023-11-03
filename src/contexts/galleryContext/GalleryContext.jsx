@@ -3,7 +3,10 @@ import { firebaseStorage } from "../../firebase/firebaseStorage";
 
 
 const gContext = createContext();
-
+// eslint-disable-next-line react-refresh/only-export-components
+export const useGallery = () => {
+    return useContext(gContext)
+}
 
 
 // eslint-disable-next-line react/prop-types
@@ -35,6 +38,3 @@ export const GProvider = ({ children }) => {
     )
 }
 
-export const UseGallery = () => {
-    return useContext(gContext)
-}

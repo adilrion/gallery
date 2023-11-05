@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Spinner } from '@material-tailwind/react';
+import { Button, Progress, Spinner } from '@material-tailwind/react';
 import { firebaseStorage } from '../../firebase/firebaseStorage';
 import { useGallery } from '../../contexts/galleryContext/GalleryContext';
 import './GStyle.css';
@@ -10,9 +10,8 @@ const GIndex = () => {
 
   const [selectedImages, setSelectedImages] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // Add this line
+  const [imagePreview, setImagePreview] = useState(null); 
 
-  console.log(selectedFile)
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -59,7 +58,7 @@ const GIndex = () => {
         setSelectedFile(null);
         setImagePreview(null)
       } catch (error) {
-        console.error('Upload error:', error);
+        // console.error('Upload error:', error);
       }
     }
   };
@@ -75,7 +74,7 @@ const GIndex = () => {
         const updatedData = await firebaseStorage.fetchImages();
         setData(updatedData);
       } catch (error) {
-        console.error('Delete error:', error);
+        // console.error('Delete error:', error);
       }
     }
   };
@@ -92,7 +91,6 @@ const GIndex = () => {
     if (type === 'group') {
       const items = [...data];
       const [reorderedItem] = items.splice(source.index, 1);
-      console.log(reorderedItem)
       items.splice(destination.index, 0, reorderedItem);
       return setData(items);
 
@@ -107,6 +105,7 @@ const GIndex = () => {
       </div>
     );
   }
+
 
   return (
     <section className="bg-white rounded-xl">
@@ -190,6 +189,12 @@ const GIndex = () => {
                       </Button>
                       <Button variant="outlined" onClick={handleUpload}>Upload</Button>
                     </div>
+                    {
+                      // firebaseStorage.progress > 0 ? (
+                        <p className='absolute right-2 bottom-2'>{firebaseStorage?.progress} </p>
+                      // ): (null)
+                    }
+                  
                   </div>
                 )}
               </div>

@@ -11,6 +11,8 @@ import { App } from "../config/firebase/firebase.config";
 
 const storage = getStorage(App);
 
+
+var progress = 0;
 const uploadImage = async (file) => {
     try {
         const metadata = {
@@ -34,9 +36,8 @@ const uploadImage = async (file) => {
         const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
         uploadTask.on("state_changed", (snapshot) => {
-            const progress =
+            progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log("Upload is " + progress + "% done");
         });
 
         const uploadSnapshot = await uploadTask;
@@ -69,4 +70,5 @@ export const firebaseStorage = {
     uploadImage,
     fetchImages,
     deleteImage,
+    progress,
 };

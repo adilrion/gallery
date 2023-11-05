@@ -11,9 +11,6 @@ export const Home = () => {
   return (
     <Layout>
 
-
-      <div>Home</div>
-
       <GIndex />
 
     </Layout>

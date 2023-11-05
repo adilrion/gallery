@@ -12,7 +12,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <GProvider>
+        <div className="bg-gray-200">
+
         <RouterProvider router={Router} />
+
+        </div>
       </GProvider>
     </ThemeProvider>
 

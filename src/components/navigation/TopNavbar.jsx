@@ -64,13 +64,13 @@ export const  TopNavbar =() =>{
     );
 
     return (
-        <div className="w-full flex justify-center shadow">
+        <div className="w-full flex justify-center shadow bg-white">
             <Navbar className="sticky max-h-[768px] max-w-screen-2xl top-0 z-10 h-max  rounded-none px-4 py-2 lg:px-8 lg:py-4 shadow-none">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Link
                         
                         to="/"
-                        className="mr-4 font-serif cursor-pointer py-1.5 font-bold uppercase"
+                        className="mr-4 font-serif cursor-pointer py-1.5 text-[22px] font-bold uppercase"
                     >
                         Rio <span className="text-deep-orange-800">Gallery</span>
                     </Link>

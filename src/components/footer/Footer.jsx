@@ -9,7 +9,7 @@ export function Footer() {
                     <Link
 
                         to="/"
-                        className="mr-4 font-serif cursor-pointer py-1.5 font-bold uppercase"
+                        className="mr-4 font-serif cursor-pointer py-1.5 text-[22px] font-bold uppercase"
                     >
                         Rio <span className="text-deep-orange-800">Gallery</span>
                     </Link>

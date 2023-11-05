@@ -1,8 +1,12 @@
 import Layout from "../../layout/Layout"
+import GIndex from "./Gindex"
 
 
 export const Gallery = () => {
   return (
-    <Layout>Gallery</Layout>
+    <Layout>
+      
+      <GIndex></GIndex>
+    </Layout>
   )
 }

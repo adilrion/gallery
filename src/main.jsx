@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { RouterProvider } from 'react-router-dom'
@@ -9,7 +8,7 @@ import { GProvider } from './contexts/galleryContext/GalleryContext'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ThemeProvider>
       <GProvider>
         <div className="bg-gray-200">
@@ -20,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </GProvider>
     </ThemeProvider>
 
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

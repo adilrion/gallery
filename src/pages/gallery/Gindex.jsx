@@ -133,17 +133,17 @@ const GIndex = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="characters" type='group'>
           {(provided) => (
-            <div id='characters' className="characters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[25px] p-6" {...provided.droppableProps} ref={provided.innerRef}>
+            <div id='characters' className="characters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-y-[25px] md:gap-[25px] p-6 " {...provided.droppableProps} ref={provided.innerRef}>
               {data.map((image, index) => (
                 <Draggable draggableId={image?.name} key={image?.name} index={index}>
                   {(provided) => (
                     <div
                       {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}
-                      className="col-span-1 border border-gray-500 rounded-xl overflow-hidden relative first:col-span-2 first:row-span-2 bg-effect"
+                      className="col-span-1  overflow-hidden relative first:col-span-2 first:row-span-2 bg-effect "
                       draggable
                     >
                       <img
-                        className="w-full h-full aspect-square"
+                        className="w-full h-full aspect-square object-center border border-gray-500 rounded-xl"
                         src={image.url}
                         alt={image.name}
                       />
@@ -161,7 +161,7 @@ const GIndex = () => {
               ))}
 
               {provided.placeholder}
-              <div className="flex items-center justify-center w-full min-h-[213px] relative">
+              <div className="flex items-center justify-center w-full min-h-[150px] relative">
                 <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-xl cursor-pointer hover:bg-[#2f2f2f3f] w-full h-full ">
                   <div className="flex flex-col items-center justify-center ">
                     <svg className="w-8 h-8 mb-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
